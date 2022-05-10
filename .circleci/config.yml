@@ -1,0 +1,34 @@
+version: 2.1
+
+jobs:
+  
+  build-medium-amd64:
+    machine:
+      image: ubuntu-2004:202101-01
+   
+    working_directory: ~/python-lz4
+    steps:
+
+      - checkout
+      - run: meson setup builddir --backend ninja
+      - run: meson compile -C builddir
+      - run: meson test -C builddir
+             
+  build-medium-arm64:
+    machine:
+      image: ubuntu-2004:202101-01
+    resource_class: arm.medium
+    working_directory: ~/python-lz4
+    steps:
+      
+      - checkout
+      - run: meson setup builddir --backend ninja
+      - run: meson compile -C builddir
+      - run: meson test -C builddir
+      
+workflows:
+  version: 2
+  python3.8:
+    jobs:
+      - build-medium-amd64
+      - build-medium-arm64
