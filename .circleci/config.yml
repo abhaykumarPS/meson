@@ -31,6 +31,7 @@ jobs:
       - run: meson setup builddir --backend ninja
       - run: meson compile -C builddir
       - run: meson test -C builddir
+      
 workflows:
   version: 2
   python3.8:
